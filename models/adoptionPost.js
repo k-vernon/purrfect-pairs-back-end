@@ -10,11 +10,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      AdoptionPost.belongsTo(models.Profile, { as: 'author', foreignKey: 'authorId' })
+      AdoptionPost.belongsTo(models.Profile, { foreignKey: 'author' })
     }
   }
   AdoptionPost.init({
-    authorId: {
+    author: {
       type: DataTypes.INTEGER,
       allowNull: false,
       onDelete: 'CASCADE',
