@@ -6,13 +6,14 @@ const adoptionPost = require('../models/adoptionPost.js')
 const { decodeUserFromToken, checkAuth } = middleware
 
 /*---------- Public Routes ----------*/
-router.post('/', adoptionPostsCtrl.create)
 router.get('/', adoptionPostsCtrl.index)
 router.get('/:id', adoptionPostsCtrl.show)
-router.put('/:id', adoptionPostsCtrl.update)
-router.delete('/:id', adoptionPostsCtrl.delete)
 
 /*---------- Protected Routes ----------*/
 
+router.use( decodeUserFromToken )
+router.post('/', checkAuth,adoptionPostsCtrl.create)
+router.put('/:id', checkAuth,adoptionPostsCtrl.update)
+router.delete('/:id', checkAuth,adoptionPostsCtrl.delete)
 
 module.exports = router

@@ -4,6 +4,9 @@ const { AdoptionPost } = require("../models")
 const create = async (req, res) => {
   try {
     console.log("Req Body:", req.body)
+    console.log("Req User:", req.user)
+    console.log("Req Author", req.body.author)
+    req.body.author = req.user.profile.id
     const adoptionPost = await AdoptionPost.create(req.body);
 
     res.status(200).json(adoptionPost);
