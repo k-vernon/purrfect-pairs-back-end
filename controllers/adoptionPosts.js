@@ -5,7 +5,6 @@ const create = async (req, res) => {
   try {
     console.log("Req Body:", req.body)
     console.log("Req User:", req.user)
-    console.log("Req Author", req.body.author)
     req.body.author = req.user.profile.id
     const adoptionPost = await AdoptionPost.create(req.body);
 
@@ -60,6 +59,23 @@ const show = async (req, res) => {
   }
 };
 
+async function addPhoto(req, res) {
+  try {
+    const imageFile = req.files.photo.path
+    const adoptionPost = await AdoptionPost.findByPk(req.params.id)
+    const image = await cloudinary.uploader.upload(
+      imageFile, 
+      { tags: `${req.user.email}` }
+    )
+    adoptionPost.photo = image.url
+    await adoptionPost.save()
+    res.status(201).json(adoptionPost.photo)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ err: error })
+  }
+}
+
 
 
 module.exports = {
@@ -67,5 +83,6 @@ module.exports = {
   index,
   update,
   show,
-  delete: deleteAdoptionPost
+  delete: deleteAdoptionPost,
+  addPhoto
 }

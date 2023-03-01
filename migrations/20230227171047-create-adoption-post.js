@@ -20,7 +20,7 @@ module.exports = {
       },
       photo: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
       },
       species: {
         type: Sequelize.ENUM('Cat', 'Dog'),
@@ -28,7 +28,6 @@ module.exports = {
       },
       name: {
         type: Sequelize.STRING,
-        allowNull: false
       },
       breed: {
         type: Sequelize.STRING,

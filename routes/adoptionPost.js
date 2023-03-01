@@ -14,6 +14,7 @@ router.get('/:id', adoptionPostsCtrl.show)
 router.use( decodeUserFromToken )
 router.post('/', checkAuth,adoptionPostsCtrl.create)
 router.put('/:id', checkAuth,adoptionPostsCtrl.update)
+router.put('/:id/add-photo', checkAuth, adoptionPostsCtrl.addPhoto)
 router.delete('/:id', checkAuth,adoptionPostsCtrl.delete)
 
 module.exports = router
